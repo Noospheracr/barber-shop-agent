@@ -1,0 +1,49 @@
+Barber Shop Booking Agent - Walkthrough
+Overview
+This prototype demonstrates a Multi-Agent System for a Barber Shop, featuring:
+
+Receptionist Agent: Routes user intent.
+Booking Agent: Manages appointments using a Mock Calendar Tool.
+Consultation Agent: Simulates style analysis using Gemini Vision.
+Follow-up Agent: Collects feedback.
+Verification Log
+The following session was recorded on 2025-12-01:
+
+--- Barber Shop Agent Started ---
+Type 'quit' to exit.
+User: Hi, I want to book a haircut.
+--- Receptionist Agent ---
+--- Booking Agent ---
+Agent: Here is the schedule for today (2025-12-01):
+Events for 2025-12-01:
+- [10:00:00 - 10:45:00] Haircut - John Doe (ID: evt_1)
+- [14:00:00 - 14:30:00] Beard Trim - Mike Smith (ID: evt_2)
+What time would you like to come in? (e.g., 'at 10:00')
+User: at 12:00
+--- Booking Agent ---
+Agent: Success: Booked 'Client Appointment' for 2025-12-01 at 12:00:00. (ID: evt_3)
+User: I want to check a style
+--- Receptionist Agent ---
+--- Consultation Agent ---
+Agent: I can help you choose a style. You can upload a photo of a look you like, or describe it to me.
+User: Here is a photo
+--- Consultation Agent ---
+Agent: Gemini Vision Analysis: This looks like a 'Textured Crop' with a high fade. It suits your face shape well.
+Would you like to book this style?
+User: quit
+Key Features Implemented
+Multi-Agent Routing: The system correctly identifies intent ("book", "style") and switches agents.
+Tool Use: The 
+BookingAgent
+ successfully queried and updated the 
+MockCalendarTool
+.
+Context Retention: The system maintained state across turns (though simple for this demo).
+Next Steps for Production
+Replace 
+MockCalendarTool
+ with real Google Calendar API.
+Integrate real Gemini 1.5 Pro API for the 
+ConsultationAgent
+.
+Deploy to a cloud runtime (e.g., Cloud Run) as an API.
