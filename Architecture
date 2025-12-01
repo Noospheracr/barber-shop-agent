@@ -1,0 +1,65 @@
+System Architecture
+High-Level Agent Flow
+This diagram shows how the user interacts with the system and how the Receptionist Agent routes requests to specialized agents.
+
+graph TD
+    User((User))
+    
+    subgraph "Barber Shop Agent System"
+        Receptionist[Receptionist Agent<br/>(Router)]
+        
+        subgraph "Specialized Agents"
+            Booking[Booking Agent]
+            Consultation[Consultation Agent]
+            Followup[Follow-up Agent]
+        end
+        
+        subgraph "Tools & State"
+            Calendar[Mock Calendar Tool]
+            Vision[Gemini Vision (Mock)]
+            State[(Shared Agent State)]
+        end
+    end
+
+    User <--> Receptionist
+    Receptionist -->|Intent: Book| Booking
+    Receptionist -->|Intent: Style| Consultation
+    Receptionist -->|Intent: Feedback| Followup
+    
+    Booking <--> Calendar
+    Consultation <--> Vision
+    
+    Booking -->|Done| Receptionist
+    Consultation -->|Done| Booking
+    Followup -->|Done| Receptionist
+    
+    Booking -.-> State
+    Consultation -.-> State
+    Receptionist -.-> State
+Technical Component Diagram
+This diagram illustrates the file structure and dependencies of the Python implementation.
+
+reads/writes
+reads/writes
+reads/writes
+reads/writes
+uses
+Main
++main()
+AgentState
++messages: List
++next_agent: str
++client_data: Dict
+ReceptionistAgent
++run(state)
+BookingAgent
++calendar: Tool
++run(state)
+ConsultationAgent
++run(state)
+FollowupAgent
++run(state)
+MockCalendarTool
++events: List
++create_event()
++list_events()
